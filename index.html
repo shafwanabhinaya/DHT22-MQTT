@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensor Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="scan-line"></div>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <header>
+      <div class="header-left">
+        <span class="label">SISTEM MONITORING</span>
+        <h1>ESP8266 <span class="accent">SENSOR</span></h1>
+      </div>
+      <div class="header-right">
+        <div class="status-wrap">
+          <span class="dot" id="dot"></span>
+          <span id="status">MENGHUBUNGKAN...</span>
+        </div>
+        <div class="broker-info">broker.hivemq.com</div>
+      </div>
+    </header>
+
+    <!-- KARTU SENSOR -->
+    <div class="grid">
+
+      <div class="kartu" id="kartu-suhu">
+        <div class="kartu-label">🌡️ SUHU</div>
+        <div class="kartu-nilai" id="nilai-suhu">--</div>
+        <div class="kartu-satuan">°C</div>
+        <div class="kartu-bar-wrap">
+          <div class="kartu-bar" id="bar-suhu"></div>
+        </div>
+        <div class="kartu-range">0°C ————————— 50°C</div>
+      </div>
+
+      <div class="kartu" id="kartu-kelembaban">
+        <div class="kartu-label">💧 KELEMBABAN</div>
+        <div class="kartu-nilai" id="nilai-kelembaban">--</div>
+        <div class="kartu-satuan">%</div>
+        <div class="kartu-bar-wrap">
+          <div class="kartu-bar" id="bar-kelembaban"></div>
+        </div>
+        <div class="kartu-range">0% ————————— 100%</div>
+      </div>
+
+    </div>
+
+    <!-- GRAFIK -->
+    <div class="grafik-wrap">
+      <div class="grafik-header">
+        <span>📈 GRAFIK REALTIME</span>
+        <div class="grafik-tabs">
+          <button class="tab aktif" onclick="gantaGrafik('keduanya', this)">SEMUA</button>
+          <button class="tab" onclick="gantaGrafik('suhu', this)">SUHU</button>
+          <button class="tab" onclick="gantaGrafik('kelembaban', this)">KELEMBABAN</button>
+        </div>
+      </div>
+      <div class="grafik-canvas-wrap">
+        <canvas id="grafikSensor"></canvas>
+      </div>
+    </div>
+
+    <!-- LOG PESAN -->
+    <div class="log-wrap">
+      <div class="log-header">
+        <span>📋 LOG DATA MASUK</span>
+        <button onclick="clearLog()">CLEAR</button>
+      </div>
+      <div class="log" id="log"></div>
+    </div>
+
+    <!-- INFO FOOTER -->
+    <footer>
+      <span>TOPIC: <code>sensor/ruangan</code></span>
+      <span>UPDATE TERAKHIR: <span id="waktu">-</span></span>
+      <span>TOTAL DATA: <span id="counter">0</span></span>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
